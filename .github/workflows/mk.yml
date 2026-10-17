@@ -1,0 +1,19 @@
+name: mk-issue
+on:
+  workflow_dispatch:
+    inputs:
+      body:
+        description: issue body
+        required: true
+permissions:
+  issues: write
+jobs:
+  mk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create issue as GITHUB_TOKEN identity (github-actions[bot])
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BODY: ${{ inputs.body }}
+        run: |
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "att1 transfer probe" --body "$BODY"
